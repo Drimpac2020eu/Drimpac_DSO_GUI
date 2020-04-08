@@ -1,0 +1,37 @@
+<div class="header-container">
+  <div class="logo-container">
+    <a (click)="toggleSidebar()" href="#" class="sidebar-toggle">
+      <nb-icon icon="menu-2-outline"></nb-icon>
+    </a>
+    <img src="assets/images/logo-drimpac.png" [ngStyle]="{'max-width': '75%','max-height': '5rem'}"
+        (click)="navigateHome()">
+  </div>
+  <label style="font-size: 2rem; margin-left: -2rem">| DSO</label>
+  <img src="assets/images/DSO.svg" [ngStyle]="{'max-width': '75%','max-height': '5rem'}">
+  
+</div>
+
+<!-- <div class="header-container">
+  <nb-actions size="small">
+
+    <nb-action class="user-action" *nbIsGranted="['view', 'user']" >
+      <nb-user [nbContextMenu]="userMenu"
+               [onlyPicture]="userPictureOnly"
+               [name]="user?.name"
+               [picture]="user?.picture">
+      </nb-user>
+    </nb-action>
+  </nb-actions>
+</div> -->
+
+<div class="header-container">
+  <nb-actions size="small">
+    <nb-action class="user-action" *nbIsGranted="['view', 'user']">
+      <nb-user [nbContextMenu]="userMenu" [name]="user?.name" [picture]="user?.image" nbContextMenuTrigger="hover"
+        nbContextMenuTag="userProfile">
+      </nb-user>
+    </nb-action>
+  </nb-actions>
+</div>
+
+<ngx-logout *ngIf="logOut" [token]="login_token"></ngx-logout>

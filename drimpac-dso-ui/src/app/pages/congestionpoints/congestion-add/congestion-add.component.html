@@ -1,0 +1,114 @@
+<ng-template #tooltipTemplate> <strong>EA1 addressing scheme</strong> <br>
+  Example: ea1.2020-04.www.drimpac.com:001:002.090807002a&b#
+  <table style="width:100%" border="1px solid black">
+    <tr>
+      <td>ea1</td>
+      <td>Constant, indicating this is a type 1 USEF entity address</td>
+
+    </tr>
+    <tr>
+      <td>2020-04</td>
+      <td>A date code, in yyyy-mm format. This date must be a date during which the naming<br> authority owned
+        the domain name used in this format, and should be the first month in which<br> the domain name was
+        owned by this naming authority at 00:01 GMT of the first day of the month.<br> This date code uses the
+        Gregorian calendar. All four digits in the year must be present. Both digits<br> of the month must be
+        present, with January == "01" and December == "12". The dash must be included.</td>
+    </tr>
+    <tr>
+      <td>www.drimpac.com</td>
+      <td>The reversed domain name of the naming authority (person or organization) creating this entity
+        address</td>
+    </tr>
+    <tr>
+      <td>001:002.090807002a&b#</td>
+      <td>A locally unique string, which may contain product types, serial numbers, host identifiers, or software
+        keys<br>(specifically: it may include colons to separate organization boundaries). With the exception
+        of the colon prefix,<br>the owner of the domain name can assign everything after the reversed domain
+        name as desired. It <br>is the responsibility of the entity that is the naming authority to ensure that the
+        names it assigns <br>are worldwide unique.</td>
+    </tr>
+
+  </table>
+</ng-template>
+
+<ng-template #tooltipTemplate2> <strong>Entity Address</strong> <br>
+  To register a Entity Address, a unique numeric identifier with length range between 12 to 25 digits is required! <br>
+  Example: ean.871685900012636543 <br>
+</ng-template>
+
+<div class="row">
+  <div class="col">
+
+
+
+    <h2>Register Congestion Point</h2>
+    <div *ngIf="activeModel===''">
+      <div class="row">
+        <button nbButton hero status="info" (click)="animateInfo(transitionController,transitionName,'ADD')">Add
+          CRO</button>
+      </div>
+    </div>
+
+    <div class="row"> </div>
+
+    <div *ngIf="activeModel" [suiTransition]="transitionController">
+
+      <nb-card accent="primary">
+        <nb-card-header>Congestion Point</nb-card-header>
+        <nb-card-body>
+
+          <div class="row">
+
+            <div class="col-md-12">
+
+              <form [formGroup]="CongestionForm">
+
+
+
+                <div class="form-group">
+                  <label for="CongestionPoint">
+                    <strong>Congestion Point</strong>
+                  </label>
+                  <input [nbPopover]="tooltipTemplate" nbPopoverPlacement="top" nbPopoverTrigger="hover" type="text"
+                    id="CongestionPoint" class="form-control" formControlName="CongestionPoint"
+                    placeholder="Add CongestionPoint.">
+                </div>
+
+
+              </form>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <ng2-smart-table [settings]="userSettings" [source]="userSource" (deleteConfirm)="onDeleteConfirm($event)"
+                (editConfirm)="onSaveConfirm($event)" (createConfirm)="onCreateConfirm($event)"
+                [nbPopover]="tooltipTemplate2" nbPopoverPlacement="bottom" nbPopoverTrigger="hover">
+              </ng2-smart-table>
+            </div>
+          </div>
+        </nb-card-body>
+        <nb-card-footer>
+          <div class="row">
+            <div class="col-md-12">
+              <button nbButton hero status="info" (click)="handleClick()">Register Congestion Point</button>
+            </div>
+            <div class="col-md-2"></div>
+            <div class="col-md-3">
+              <div *ngIf="message" [ngClass]="{
+              'errorTextarea': message.includes('Error'),
+              'successTextarea': !message.includes('Error')
+            }">
+                {{message}}
+              </div>
+            </div>
+          </div>
+
+        </nb-card-footer>
+
+
+
+      </nb-card>
+    </div>
+  </div>
+</div>

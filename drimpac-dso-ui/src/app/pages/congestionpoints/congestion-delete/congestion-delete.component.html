@@ -1,0 +1,73 @@
+<div class="row">
+  <div class="col">
+
+    
+    <h2>Delete Congestion Points</h2>
+    <div *ngIf ="activeModel===''">
+    <div class="row">       
+            <button nbButton hero status="info" (click)="animateInfo(transitionController,transitionName,'ADD')" >Add CRO</button>         
+    </div>
+   </div>
+
+    <div class="row">   </div>
+
+    <div *ngIf="activeModel" [suiTransition]="transitionController">
+       
+      <nb-card accent="primary">
+        <nb-card-header>Congestion Point</nb-card-header>
+        <nb-card-body>
+  
+          <div class="row">
+            <div class="col-md-12">
+
+              <form [formGroup]="CongestionForm">
+
+               
+      
+                <div class="form-group" (change)="handleDropDown($event)">
+                  <label for="CongestionPoint">Congestion Point</label>
+                  <select class="form-control">
+                    <option value="">Choose your Congestion Point</option>
+                    <option *ngFor="let tiZ of entinities" [ngValue]="tiZ">{{tiZ}}</option>
+                  </select>
+
+                </div>
+      
+          
+          </form>
+        </div>
+      </div>
+
+      <div *ngIf ="entinityval">
+      <div class="row">
+        <div class="col-md-12">
+          <ng2-smart-table [settings]="userSettings" [source]="userSource">
+          </ng2-smart-table>
+        </div>
+      </div>
+    </div>
+    </nb-card-body>
+    <nb-card-footer>
+      <div class="row">
+        <div class="col-md-12">
+          <button nbButton hero status="info" (click)="handleClick()">Delete Congestion Point</button>
+        </div>
+        <div class="col-md-2"></div>
+        <div class="col-md-3">
+          <div *ngIf="message" [ngClass]="{
+              'errorTextarea': message.includes('Error'),
+              'successTextarea': !message.includes('Error')
+            }">
+            {{message}}
+          </div>
+        </div>
+      </div>
+      
+    </nb-card-footer>
+    </nb-card>
+
+
+    </div> 
+
+</div>
+</div>
