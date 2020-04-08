@@ -1,0 +1,141 @@
+<div class="row">
+    <div class="col">
+    
+      <nb-card accent="primary">
+        <nb-card-header>USEF</nb-card-header>
+        <nb-card-body>
+  
+          <div class="row">
+            <div class="col-md-2">
+              <button nbButton hero status="info" (click)="handleClick()">Send Demand Response</button>
+            </div>
+            <div class="col-md-2"></div>
+
+          </div>
+            <!--
+          <div class="row">
+            <div class="col-md-12">
+              <ng2-smart-table *ngIf="messages" [settings]="userSettings" [source]="messageQueue">
+              </ng2-smart-table>
+            </div>
+          </div>
+        -->
+         <!--
+          <div class="row">
+            <div class="col-md-6" >
+             
+                <nb-card accent="primary">
+                  <nb-card-body *ngFor="let q of messageQueue">
+              
+                    <label class="component-name">{{q.data}}</label>
+                  </nb-card-body>
+                </nb-card>
+              </div>
+  
+              <div class="col-md-6" >
+             
+                <nb-card accent="primary">
+                  <nb-card-body *ngFor="let t of timestamp">
+              
+                    <label class="component-name">{{t.data}}</label>
+                  </nb-card-body>
+                </nb-card>
+              </div>
+            
+          </div>
+        -->      
+      </nb-card-body>
+
+    </nb-card>
+
+        <h2>Congestion & Connection Points</h2>
+      
+    
+        <div class="row">   </div>
+    
+      
+            <div class="row">
+                <div class="col">
+              
+                  <nb-card accent="primary">
+                    <nb-card-header>Register Congestion & Connection Points</nb-card-header>
+                    <nb-card-body>
+              
+                      <div class="row">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+              
+                            <form [formGroup]="TestMessForm">
+              
+                                <div class="form-group">
+                                  <label for="CongestionPoint">Congestion Point</label>
+                                  <input 
+                                    type="text"
+                                    id="CongestionPoint"
+                                    class="form-control"
+                                    formControlName="CongestionPoint"
+                                    placeholder="Entity Address of the CongestionPoint."
+                                  
+                                  >
+                                </div>
+
+
+                                <div class="form-group">
+                                  <label for="Connection">Connection</label>
+                                  <input 
+                                    type="text"
+                                    id="Connection"
+                                    class="form-control"
+                                    formControlName="Connection"
+                                    placeholder="Entity Address of the referenced Connection."
+                                  
+                                  >
+                                </div>
+                      
+
+                                <div class="form-group">
+                                  <label for="SenderDomain">Sender Domain</label>
+                                  <input 
+                                    type="text"
+                                    id="SenderDomain"
+                                    class="form-control"
+                                    formControlName="SenderDomain"
+                                    placeholder="The Internet domain of the USEF participant sending this message."
+                                  
+                                  >
+                                </div>
+
+                               
+                      
+                               
+    
+                               
+
+                                <div class="form-group" (change)="handleDropDown('Precedence',$event)">
+                                  <label for="Precedence">Precedence</label>
+                                  <select class="form-control">
+                                    <option value="Critical">Critical</option>
+                                    <option value="Routine">Routine</option>
+                                    <option value="Transactional">Transactional</option>
+                                  </select>
+                                </div>
+
+                              <div class="form-group">
+                                <label for="ValidUntil">Valid Until</label>
+                                <input 
+                                  type="text"
+                                  id="ValidUntil"
+                                  class="form-control"
+                                  formControlName="ValidUntil"
+                                  placeholder="Optional absolute date and time this message expires"
+                                >
+                            </div>
+
+ 
+  
+
+      
+
+</form>
+</div>
+</div>

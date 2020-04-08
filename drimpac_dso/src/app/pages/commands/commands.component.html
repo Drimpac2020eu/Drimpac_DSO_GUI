@@ -1,0 +1,55 @@
+<h2>Commands</h2>
+
+<nb-card accent="primary">
+  <nb-card-header>Publish Congestion Points</nb-card-header>
+  <nb-card-body>
+    Publish Congestion Points, including their associated Connections, to the Common Reference, in order
+    to make them available to the AGRs.<br> <br>
+    <div class="row">
+      <div class="col-md-2">
+        <button nbButton hero status="info" (click)="handleClick()">Common Reference Update</button>
+      </div>
+      <div class="col-md-2"></div>
+
+    </div>
+
+  </nb-card-body>
+
+</nb-card>
+
+
+<nb-card accent="primary">
+  <nb-card-header>Retrieve Active Aggregators</nb-card-header>
+  <nb-card-body>
+    Retrieves a list of all DSO-registered Congestion Points with, for each such point, a list of Aggregators
+    representing Prosumers there, including the number of Connections each Aggregator represents. <br> <br>
+    <div class="row">
+      <div class="col-md-2">
+        <button nbButton hero status="info" (click)="handleClick2()">Common Reference Query</button>
+      </div>
+      <div class="col-md-2"></div>
+
+    </div>
+
+  </nb-card-body>
+
+</nb-card>
+
+
+<nb-card accent="primary">
+  <nb-card-header>Create Connection Forecast Event</nb-card-header>
+  <nb-card-body>
+    Create forecast for connections which are not served by an AGR. The DSO must create the non-aggregator connection
+    forecast before it receives any D-Prognoses from AGRs. Therefore the DSO
+    connection forecast must be called earlier than the AGRs connection forecast. <br> <br>
+    <div class="row">
+      <div class="col-md-2">
+        <button nbButton hero status="info" (click)="handleClick3()">Create Connection Forecast</button>
+      </div>
+      <div class="col-md-2"></div>
+
+    </div>
+
+  </nb-card-body>
+
+</nb-card>

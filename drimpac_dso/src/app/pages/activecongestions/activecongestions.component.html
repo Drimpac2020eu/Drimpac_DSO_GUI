@@ -1,0 +1,52 @@
+<div class="row">
+    <div class="col">
+      <h2>Active Congestion Points</h2>
+      <nb-card accent="primary">
+
+
+      
+          <nb-card-header>Congestion Points and Connections</nb-card-header>
+          <nb-card-body>
+    
+            <div class="row">
+              <div class="col-md-12">
+  
+                <form [formGroup]="prognosisForm">
+  
+                 
+        
+                  <div class="form-group" (change)="handleDropDown($event)">
+                    <label for="CongestionPoint">Congestion Points</label>
+                    <select class="form-control">
+                      <option value="" disabled>Choose your Congestion Point</option>
+                      <option *ngFor="let tiZ of sequence" [ngValue]="tiZ">{{tiZ}}</option>
+                    </select>
+  
+                  </div>
+        
+            
+            </form>
+          </div>
+        </div>
+        <div *ngIf ="sequenceval">
+       
+        <div class="row">
+          <div class="col">
+            <h2>Connections</h2>
+          </div></div>
+        <div class="row">
+          <div class="col-md-12">
+            <ng2-smart-table [settings]="userSettingsPTU" [source]="userSourcePTU">
+            </ng2-smart-table>
+          </div>
+        </div>
+      </div> 
+      </nb-card-body>
+  
+      </nb-card>
+        <div class="row">   </div>
+    
+      
+            <div class="row">
+                <div class="col">
+                </div></div>

@@ -1,0 +1,24 @@
+
+@import '../../../@theme/styles/themes';
+
+.datePickerStyles {
+    width: 100%;
+    height: 100%;
+    padding-left: 10px;
+}
+
+
+
+:host /deep/ ng2-smart-table {
+  text-align: center;
+}
+
+:host /deep/ ng2-smart-table ngx-user {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+:host /deep/ tbody  tr.ng2-smart-row.selected
+{ background:lightblue !important; border:1px solid blue;}
+
