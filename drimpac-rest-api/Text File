@@ -1,0 +1,20 @@
+
+java -cp /opt/wildfly/modules/system/layers/base/com/h2database/h2/main/h2-1.4.190.jar org.h2.tools.RunScript -url "jdbc:h2:tcp://127.0.0.1//home/tsotakis/Desktop/ri.usef.energy-master/usef-environment/nodes/localhost/data/mdc1.usef-example.com;CIPHER\=AES;MVCC\=true" -user usef -password "sebdaVzBegVLhKI ORyqvZlKbYGochO"  -script script  -driver org.h2.Driver
+
+
+
+java -cp /opt/wildfly/modules/system/layers/base/com/h2database/h2/main/h2-1.4.190.jar  org.h2.tools.RunScript -user usef -password "vuflwVyZzWlFsbg ZSvJxbsQtzuFPEx"  -script usef_common_reference_AGR1.sql -driver org.h2.Driver -url "jdbc:h2:tcp://127.0.0.1//home/tsotakis/Desktop/ri.usef.energy-master/usef-environment/nodes/localhost/data/agr1.usef-example.com;CIPHER\=AES;MVCC\=true"
+
+java -cp /opt/wildfly/modules/system/layers/base/com/h2database/h2/main/h2-1.4.190.jar  org.h2.tools.RunScript -user usef -password "vuflwVyZzWlFsbg ZSvJxbsQtzuFPEx"  -script usef_common_reference_AGR2.sql -driver org.h2.Driver -url "jdbc:h2:tcp://127.0.0.1//home/tsotakis/Desktop/ri.usef.energy-master/usef-environment/nodes/localhost/data/agr2.usef-example.com;CIPHER\=AES;MVCC\=true"
+
+
+java -cp /opt/wildfly/modules/system/layers/base/com/h2database/h2/main/h2-1.4.190.jar  org.h2.tools.RunScript -user usef -password "vuflwVyZzWlFsbg ZSvJxbsQtzuFPEx"  -script usef_common_reference_AGR3.sql -driver org.h2.Driver -url "jdbc:h2:tcp://127.0.0.1//home/tsotakis/Desktop/ri.usef.energy-master/usef-environment/nodes/localhost/data/agr3.usef-example.com;CIPHER\=AES;MVCC\=true"
+
+java -cp /opt/wildfly/modules/system/layers/base/com/h2database/h2/main/h2-1.4.190.jar  org.h2.tools.RunScript -user usef -password "vuflwVyZzWlFsbg ZSvJxbsQtzuFPEx"  -script usef_common_reference_MDC1.sql -driver org.h2.Driver -url "jdbc:h2:tcp://127.0.0.1//home/tsotakis/Desktop/ri.usef.energy-master/usef-environment/nodes/localhost/data/mdc1.usef-example.com;CIPHER\=AES;MVCC\=true"
+
+
+java -cp /opt/wildfly/modules/system/layers/base/com/h2database/h2/main/h2-1.4.190.jar  org.h2.tools.RunScript -user usef -password "vuflwVyZzWlFsbg ZSvJxbsQtzuFPEx"  -script usef_common_reference_BRP1.sql -driver org.h2.Driver -url "jdbc:h2:tcp://127.0.0.1//home/tsotakis/Desktop/ri.usef.energy-master/usef-environment/nodes/localhost/data/brp1.usef-example.com;CIPHER\=AES;MVCC\=true"
+
+java -cp /opt/wildfly/modules/system/layers/base/com/h2database/h2/main/h2-1.4.190.jar  org.h2.tools.RunScript -user usef -password "vuflwVyZzWlFsbg ZSvJxbsQtzuFPEx"  -script usef_common_reference_BRP2.sql -driver org.h2.Driver -url "jdbc:h2:tcp://127.0.0.1//home/tsotakis/Desktop/ri.usef.energy-master/usef-environment/nodes/localhost/data/brp2.usef-example.com;CIPHER\=AES;MVCC\=true"
+
+java -cp /opt/wildfly/modules/system/layers/base/com/h2database/h2/main/h2-1.4.190.jar  org.h2.tools.RunScript -user usef -password "vuflwVyZzWlFsbg ZSvJxbsQtzuFPEx"  -script usef_common_reference_DSO1.sql -driver org.h2.Driver -url "jdbc:h2:tcp://127.0.0.1//home/tsotakis/Desktop/ri.usef.energy-master/usef-environment/nodes/localhost/data/dso1.usef-example.com;CIPHER\=AES;MVCC\=true - showResults"
