@@ -3,9 +3,60 @@
 /**
  * Module dependencies.
  */
-
+var http = require('https');
+const url = require('url');
 const dotenv = require('dotenv');
 dotenv.config();
+const JDBC = require('@naxmefy/jdbc').JDBC
+var properties = require('java-properties');
+var values = properties.of(process.env.USEF_FOLDER + 'usef-environment/nodes/localhost/configuration/credentials.properties');
+
+
+const jdbcDatabase = new JDBC({
+  className: values.get('DB_DRIVER'),
+  url: values.get('DB_URL'),
+  username: values.get('DB_USER'),
+  password: values.get('DB_PASSWORD')
+})
+
+function returnRefererUpperDSO(_req)
+{
+   return 'WWW_DRIMPAC_COM_DSO';
+  // return (((url.parse(_req.headers.referer).pathname).replace(/\//g,'')).replace(/\./g,'_')).toUpperCase();
+};
+
+function returnRefererDSO(_req)
+{
+   return '/www.drimpac.com_DSO/';
+   return url.parse(_req.headers.referer).pathname;
+};
+
+function returnRefererDSOUrl(_req)
+{
+  return 'www.drimpac.com';
+  let str =  (url.parse(_req.headers.referer).pathname).replace(/\//g,'');
+  return str.substring(0,str.length-4);
+};
+
+function returnRefererAGRUrl(_req)
+{
+ // return 'www.sorea.com';
+  let str =  (url.parse(_req.headers.referer).pathname).replace(/\//g,'');
+  return str.substring(0,str.length-4);
+};
+
+function returnRefererAGR(_req)
+{
+  // return '/www.sorea.com_AGR/';
+   return url.parse(_req.headers.referer).pathname;
+};
+
+function returnRefererUpperAGR(_req)
+{
+  // return 'WWW_SOREA_COM_AGR';
+   return (((url.parse(_req.headers.referer).pathname).replace(/\//g,'')).replace(/\./g,'_')).toUpperCase();
+};
+
 module.exports = {
   endpoint: process.env.DRIMPAC,
   mongoUser: process.env.MONGO_USER,
@@ -15,7 +66,14 @@ module.exports = {
   mongoAuthDb: process.env.MONGO_AUTH_DB,
   port: process.env.DRIMPAC_REST_PORT,
   drimpacPort: process.env.DRIMPAC_PORT,
-  drimpacIP: process.env.DRIMPAC
+  drimpacIP: process.env.DRIMPAC,
+  myDatabase: jdbcDatabase,
+  usefRefererDSO: returnRefererDSO,
+  usefRefererAGR: returnRefererAGR,
+  usefRefererUpperDSO: returnRefererUpperDSO,
+  usefRefererUpperAGR: returnRefererUpperAGR,
+  usefRefererDSOUrl: returnRefererDSOUrl,
+  usefRefererAGRUrl: returnRefererAGRUrl
 };
 
 
@@ -24,7 +82,7 @@ module.exports = {
 
 var app = require('../index');
 var debug = require('debug')('file-upload-api:server');
-var http = require('https');
+
 var fs = require('fs');
 
 var cors = require('cors');
@@ -44,7 +102,7 @@ const options = {
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.DRIMPAC_AGG_REST_PORT || '9005');
+var port = normalizePort(process.env.DRIMPAC_REST_PORT|| '9000');
 app.set('port', port);
 
 
@@ -62,7 +120,7 @@ var server = http.createServer(options,app);
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
+server.listen(port, '0.0.0.0');
 server.on('error', onError);
 server.on('listening', onListening);
 

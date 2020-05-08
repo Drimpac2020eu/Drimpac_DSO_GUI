@@ -1,6 +1,8 @@
 'use strict';
 const mongodb = require('mongodb').MongoClient;
 const uuid = require('uuid');
+const yaml = require('js-yaml');
+const fs = require('fs');
 
 /*
  http://mongodb.github.io/node-mongodb-native/2.0/tutorials/crud_operations/
@@ -25,6 +27,7 @@ module.exports = class MongoDbHelper {
         callback(db);
       }
     );
+
   }
 
   collection(collectionName) {
@@ -39,6 +42,19 @@ module.exports = class MongoDbHelper {
               reject(err);
             }
             resolve(model);
+          });
+        });
+
+      },
+
+      replaceOne: (param1, param2, param3) => {
+        // TODO: insert many
+        return new Promise((resolve, reject) => {
+          mongoDbCollection.replaceOne(param1, param2, param3 , (err, result) => {
+            if (err) {
+              reject(err);
+            }
+            resolve(result);
           });
         });
 

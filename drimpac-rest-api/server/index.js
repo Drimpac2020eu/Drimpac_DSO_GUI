@@ -76,8 +76,15 @@ app.post('/drimpac-aggregator/rest/api/v1/publish_connections', drimpacApi.publi
 app.get('/drimpac-aggregator/rest/api/v1/get_load_forecast', drimpacApi.getLoadForecast);
 app.get('/drimpac-aggregator/rest/api/v1/get_asset_load_forecast', drimpacApi.getAssetLoadForecast);
 app.get('/drimpac-aggregator/rest/api/v1/get_flexibility_offer', drimpacApi.getFlexibilityOffer);
+app.get('/drimpac-aggregator/rest/api/v1/get_asset_flexibility_offer', drimpacApi.getAssetFlexibilityOffer);
 app.get('/drimpac-aggregator/rest/api/v1/get_registered_connections', drimpacApi.getRegisteredConnections);
 app.get('/drimpac-aggregator/rest/api/v1/get_latest_pvTimeseries', drimpacApi.getLatestPVTimeseries);
+app.get('/drimpac-aggregator/rest/getFlexResponseStatus', drimpacApi.getFlexResponseStatus);
+app.post('/drimpac-aggregator/rest/api/v1/revoke_offer', drimpacApi.revoke_offer);
+app.post('/drimpac-aggregator/rest/api/v1/insertflexoffer', drimpacApi.insertflexoffer);
+app.post('/drimpac-aggregator/rest/api/v1/insertflexorder', drimpacApi.insertflexorder);
+app.post('/drimpac-aggregator/rest/api/v1/login_with_email_password', authApi.login_with_email_password);
+
 app.get('/drimpac-dso/rest/api/v1/getmessage', usefAPI.sendmessage);
 app.post('/drimpac-dso/rest/api/v1/sendmessage', usefAPI.getmessage);
 app.get('/drimpac-dso/rest/getCROs', usefAPI.getCROs);
@@ -88,6 +95,7 @@ app.post('/drimpac-dso/rest/get_CRO', usefAPI.getCRO);
 app.post('/drimpac-dso/rest/add_Congestion', usefAPI.addCongestion);
 app.get('/drimpac-dso/rest/getPrognoses', usefAPI.getPrognoses);
 app.get('/drimpac-dso/rest/getFlexOffer', usefAPI.getFlexOffer);
+app.get('/drimpac-dso/rest/getFlexOrder', usefAPI.getFlexOrder);
 app.get('/drimpac-dso/rest/getConfigFile', usefAPI.getConfigFile);
 app.get('/drimpac-dso/rest/commoneferenceupdate', usefAPI.commoneferenceupdate);
 app.get('/drimpac-dso/rest/commoneferencequery', usefAPI.commoneferencequery);
@@ -95,8 +103,14 @@ app.get('/drimpac-dso/rest/connectionforecast', usefAPI.connectionforecast);
 app.get('/drimpac-dso/rest/flexorder', usefAPI.flexorder);
 app.get('/drimpac-dso/rest/activecongestions', usefAPI.activecongestions);
 app.get('/drimpac-dso/rest/activeaggregators', usefAPI.activeaggregators);
+app.post('/drimpac-dso/rest/flexofferrevoke', usefAPI.flexofferRevoke);
+app.get('/drimpac-dso/rest/getflexofferrevoke', usefAPI.getFlexRevoke);
+app.post('/drimpac-dso/rest/getusefparameters', usefAPI.getusefparameters);
+app.post('/drimpac-dso/rest/setusefparameters', usefAPI.setusefparameters);
+app.get('/drimpac-dso/rest/planBoardflexoffer', usefAPI.getPlanboardFlexOffer);
 
-
+app.get('/drimpac-dso/rest/endp', drimpacApi.getEvents);
+app.post('/drimpac-dso/rest/usefEvents', drimpacApi.usefEvents);
 
 /* AUTH API */
 

@@ -3,10 +3,24 @@ const express = require('express');
 const shell = require('shelljs');
 const https = require('https');
 var parser = require('xml2json');
-const JDBC = require('@naxmefy/jdbc').JDBC
-var parser = require('xml2json');
+var moment = require('moment');
+
 const yaml = require('js-yaml');
 const fs = require('fs');
+const url = require('url');
+
+
+const {
+  mongoUser,
+  mongoPass,
+  mongoIP,
+  mongoPort,
+  drimpacPort,
+  drimpacIP,
+  myDatabase,
+  usefRefererDSO,
+  usefRefererUpperDSO,
+  usefRefererDSOUrl} = require('../bin/www');
 
 require('https').globalAgent.options.ca = require('ssl-root-cas/latest').create();
 var njs = '';
@@ -27,12 +41,12 @@ exports.getEPE = (req, res) => {
 
 };
 
-const myDatabase = new JDBC({
-  className: 'org.h2.Driver',
-  url: 'jdbc:h2:tcp://localhost//home/tsotakis/Desktop/ri.usef.energy-develop/usef-environment/nodes/localhost/data/dso1.miwenergia.com;CIPHER\=AES;MVCC\=true',
-  username: 'usef',
-  password: 'COAJfwfaQCRrPMf lpdeLRQUgHCeKTX'
-})
+//const myDatabase = new JDBC({
+//  className: 'org.h2.Driver',
+//  url: 'jdbc:h2:tcp://localhost//home/tsotakis/Desktop/ri.usef.energy-develop/usef-environment/nodes/localhost/data/dso1.miwenergia.com;CIPHER\=AES;MVCC\=true',
+//  username: 'usef',
+//  password: 'sPPuQOfRbEMVjeQ EAerNmYPMNpZjHw'
+//})
 
 
 
@@ -71,9 +85,9 @@ exports.getmessage = (req, res) => {
 exports.getCROs = (_req, _res) => {
   console.log('getCROs');
   const options = {
-    hostname: 'dso1.miwenergia.com',
+    hostname: usefRefererDSOUrl(_req),
     port: 8443,
-    path: '/dso1.miwenergia.com_DSO/rest/commonreferenceoperators',
+    path: usefRefererDSO(_req) + 'rest/commonreferenceoperators',
     insecure: true
   }
 
@@ -100,9 +114,9 @@ exports.getCROs = (_req, _res) => {
 exports.getSynchronisationCongestionpoints = (_req, _res) => {
   console.log('getCROs');
   const options = {
-    hostname: 'dso1.miwenergia.com',
+    hostname: usefRefererDSOUrl(_req),
     port: 8443,
-    path: '/dso1.miwenergia.com_DSO/rest/synchronisationcongestionpoints',
+    path: usefRefererDSO(_req) + 'rest/synchronisationcongestionpoints',
     insecure: true
   }
 
@@ -176,9 +190,9 @@ exports.addCRO = (req, res) => {
   try {
     const options = {
       method: "POST",
-      hostname: 'dso1.miwenergia.com',
+      hostname: usefRefererDSOUrl(req),
       port: "8443",
-      path: '/dso1.miwenergia.com_DSO/rest/commonreferenceoperators',
+      path: usefRefererDSO(req) + 'rest/commonreferenceoperators',
       headers: {
         "Content-Type": "application/json",
       },
@@ -222,9 +236,9 @@ exports.getCRO = (req, res) => {
   try {
     const options = {
       method: "GET",
-      hostname: 'dso1.miwenergia.com',
+      hostname: usefRefererDSOUrl(req),
       port: "8443",
-      path: '/dso1.miwenergia.com_DSO/rest/commonreferenceoperators',
+      path: usefRefererDSO(req) + 'rest/commonreferenceoperators',
       headers: {
         "Content-Type": "application/json",
       },
@@ -270,9 +284,9 @@ exports.addCongestion = (req, res) => {
   try {
     const options = {
       method: "POST",
-      hostname: 'dso1.miwenergia.com',
+      hostname: usefRefererDSOUrl(req),
       port: "8443",
-      path: '/dso1.miwenergia.com_DSO/rest/synchronisationcongestionpoints',
+      path: usefRefererDSO(req) + 'rest/synchronisationcongestionpoints',
       headers: {
         "Content-Type": "application/json",
       },
@@ -316,7 +330,7 @@ exports.getPrognoses = (req, res) => {
     let _result = [];
     myDatabase.createStatement()
       .then(statement => {
-        return statement.executeQuery('SELECT XML FROM DSO1_MIWENERGIA_COM_DSO.MESSAGE WHERE XML LIKE \'%Prognosis %\'')
+        return statement.executeQuery('SELECT XML FROM ' + usefRefererUpperDSO(req) + '.MESSAGE WHERE XML LIKE \'%Prognosis %\'')
       })
       .then(resultSet => {
         const arrayOfResults = resultSet.fetchAllResults()
@@ -325,6 +339,8 @@ exports.getPrognoses = (req, res) => {
 
 
         })
+
+        
         res.json({
           status: 'success',
           body: _result,
@@ -351,7 +367,7 @@ exports.getFlexOffer = (req, res) => {
     let _result = [];
     myDatabase.createStatement()
       .then(statement => {
-        return statement.executeQuery('SELECT XML FROM DSO1_MIWENERGIA_COM_DSO.MESSAGE WHERE XML LIKE \'%FlexOffer %\'')
+        return statement.executeQuery('SELECT XML FROM ' + usefRefererUpperDSO(req) + '.MESSAGE WHERE XML LIKE \'%FlexOffer %\'')
       })
       .then(resultSet => {
         const arrayOfResults = resultSet.fetchAllResults()
@@ -380,6 +396,39 @@ exports.getFlexOffer = (req, res) => {
   }
 }
 
+exports.getFlexOrder = (req, res) => {
+  try {
+    let _result = [];
+    myDatabase.createStatement()
+      .then(statement => {
+        return statement.executeQuery('SELECT XML FROM ' + usefRefererUpperDSO(req) + '.MESSAGE WHERE XML LIKE \'%FlexOrder %\'')
+      })
+      .then(resultSet => {
+        const arrayOfResults = resultSet.fetchAllResults()
+        arrayOfResults.forEach(result => {
+          _result.push(JSON.parse(parser.toJson(result['XML'])));
+
+
+        })
+        res.json({
+          status: 'success',
+          body: _result,
+        }
+        )
+      },
+
+      )
+
+  }
+
+
+  catch (error) {
+    console.log(error);
+    res.json({
+      status: 'Error:' + error,
+    });
+  }
+}
 
 exports.getConfigFile = (req, res) => {
   try {
@@ -405,9 +454,9 @@ exports.commoneferenceupdate = (req, res) => {
   try {
     const options = {
       method: "GET",
-      hostname: 'dso1.miwenergia.com',
+      hostname: usefRefererDSOUrl(req),
       port: "8443",
-      path: '/dso1.miwenergia.com_DSO/rest/Event/CommonReferenceUpdateEvent',
+      path: usefRefererDSO(req) + 'rest/Event/CommonReferenceUpdateEvent',
       headers: {
         "Content-Type": "application/json",
       },
@@ -448,9 +497,9 @@ exports.commoneferencequery = (req, res) => {
   try {
     const options = {
       method: "GET",
-      hostname: 'dso1.miwenergia.com',
+      hostname: usefRefererDSOUrl(req),
       port: "8443",
-      path: '/dso1.miwenergia.com_DSO/rest/Event/CommonReferenceQueryEvent',
+      path: usefRefererDSO(req) + 'rest/Event/CommonReferenceQueryEvent',
       headers: {
         "Content-Type": "application/json",
       },
@@ -491,9 +540,9 @@ exports.connectionforecast = (req, res) => {
   try {
     const options = {
       method: "GET",
-      hostname: 'dso1.miwenergia.com',
+      hostname: usefRefererDSOUrl(req),
       port: "8443",
-      path: '/dso1.miwenergia.com_DSO/rest/Event/CreateConnectionForecastEvent',
+      path: usefRefererDSO(req) + 'rest/Event/CreateConnectionForecastEvent',
       headers: {
         "Content-Type": "application/json",
       },
@@ -533,9 +582,9 @@ exports.flexorder = (req, res) => {
   try {
     const options = {
       method: "GET",
-      hostname: 'dso1.miwenergia.com',
+      hostname: usefRefererDSOUrl(req),
       port: "8443",
-      path: '/dso1.miwenergia.com_DSO/rest/Event/FlexOrderEvent',
+      path: usefRefererDSO(req) + 'rest/Event/FlexOrderEvent',
       headers: {
         "Content-Type": "application/json",
       },
@@ -577,9 +626,9 @@ exports.flexrequest = (req, res) => {
   try {
     const options = {
       method: "GET",
-      hostname: 'dso1.miwenergia.com',
+      hostname: usefRefererDSOUrl(req),
       port: "8443",
-      path: '/dso1.miwenergia.com_DSO/rest/Event/CreateFlexRequestEvent' + '/' + str,
+      path: usefRefererDSO(req) + 'rest/Event/CreateFlexRequestEvent' + '/' + str,
       headers: {
         "Content-Type": "application/json",
       },
@@ -617,11 +666,25 @@ exports.flexrequest = (req, res) => {
 
 
 exports.activecongestions = (req, res) => {
+  var url2 = req.socket.localAddress;
+ // console.log("url: " + url2);    //prints out url: /dashboard
+  var user = {
+    agent: req.header('user-agent'), // User Agent we get from headers
+    referrer:  (((url.parse(req.headers.referer).pathname).replace(/\//g,'')).replace(/\./g,'_')).toUpperCase(), //  Likewise for referrer
+    ip: req.header('x-forwarded-for') || req.connection.remoteAddress, // Get IP - allow for proxy
+    screen: { // Get screen info that we passed in url post data
+      width: req.param('width'),
+      height: req.param('height')
+    }
+  };
+  console.log( usefRefererDSO(req) +' usefRefererDSO');
+  console.log( usefRefererUpperDSO(req) +' usefRefererUpperDSO' );
+  console.log( usefRefererDSOUrl(req) + ' usefRefererDSOUrl');
   try {
     let _result = [];
     myDatabase.createStatement()
       .then(statement => {
-        return statement.executeQuery('SELECT * FROM DSO1_MIWENERGIA_COM_DSO.CONNECTION_GROUP_STATE')
+        return statement.executeQuery('SELECT * FROM ' + usefRefererUpperDSO(req) + '.CONNECTION_GROUP_STATE')
       })
       .then(resultSet => {
         const arrayOfResults = resultSet.fetchAllResults()
@@ -653,7 +716,7 @@ exports.activecongestions = (req, res) => {
       let _result = [];
       myDatabase.createStatement()
         .then(statement => {
-          return statement.executeQuery('SELECT DOMAIN FROM DSO1_MIWENERGIA_COM_DSO.AGGREGATOR')
+          return statement.executeQuery('SELECT DOMAIN FROM ' + usefRefererUpperDSO(req) + '.AGGREGATOR')
         })
         .then(resultSet => {
           const arrayOfResults = resultSet.fetchAllResults()
@@ -667,9 +730,9 @@ exports.activecongestions = (req, res) => {
           }
           )
         },
-
+  
         )
-
+  
     }
     catch{
       console.log(error);
@@ -678,3 +741,214 @@ exports.activecongestions = (req, res) => {
       });
     }
     }
+
+
+    exports.flexofferRevoke = (req, res) => {
+
+      
+      let host_n=req.body[0].toString();
+      let path_n='/'+ req.body[0].toString() +'_AGR/rest/FlexOfferRevocationEndpoint/revokeFlexOffer/'+ req.body[1].toString() + '/'+ req.body[2].toString() + '/'+ req.body[3].toString();
+      console.log(host_n);
+      console.log(path_n);
+      try {
+        const options = {
+          method: "GET",
+          hostname: host_n,
+          port: "8443",
+          path: path_n,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          insecure: true,
+        };
+    
+        var _req = https.request(options, function (_res) {
+          var chunks = [];
+    
+          _res.on("data", function (chunk) {
+            chunks.push(chunk);
+          });
+    
+          _res.on("end", function () {
+            var body = Buffer.concat(chunks);
+            console.log(body.toString());
+          });
+        });
+    
+        // _req.write(JSON.stringify(req.body));
+        _req.end();
+        //console.log(_req.body.parameters);
+        res.json({
+          status: 'Success',
+          data: '1234'
+        });
+      }
+      catch (error) {
+        console.log(error);
+        res.json({
+          status: 'Error:' + error,
+        });
+      }
+    }
+
+
+    exports.getFlexRevoke = (req, res) => {
+      try {
+        let _result = [];
+        myDatabase.createStatement()
+          .then(statement => {
+            return statement.executeQuery('SELECT XML FROM ' + usefRefererUpperDSO(req) + '.MESSAGE WHERE XML LIKE \'%FlexOfferRevocationResponse %\'')
+          })
+          .then(resultSet => {
+            const arrayOfResults = resultSet.fetchAllResults()
+            arrayOfResults.forEach(result => {
+              _result.push(JSON.parse(parser.toJson(result['XML'])));
+    
+    
+            })
+            res.json({
+              status: 'success',
+              body: _result,
+            }
+            )
+          },
+    
+          )
+    
+      }catch (error) {
+        console.log(error);
+        res.json({
+          status: 'Error:' + error,
+        });
+      }
+
+    }
+  
+
+    exports.getusefparameters = (req, res) => {
+      let prop=req.body[0].toString();
+      
+      try {
+        var para="";
+        const options = {
+          method: "GET",
+          hostname: usefRefererDSOUrl(req),
+          port: "8443",
+          path: usefRefererDSO(req) + 'rest/Event/getProperty/' + prop,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          insecure: true,
+        };
+    
+        var _req = https.request(options, function (_res) {
+          var chunks = [];
+    
+          _res.on("data", function (chunk) {
+            chunks.push(chunk);
+          });
+    
+          _res.on("end", function () {
+            var body = Buffer.concat(chunks);
+            console.log(body.toString());
+            res.json({
+              status: 'Success',
+              data: body.toString()
+            });
+          });
+        });
+    
+        // _req.write(JSON.stringify(req.body));
+        _req.end();
+        //console.log(_req.body.parameters);
+        
+      }
+      catch (error) {
+        console.log(error);
+        res.json({
+          status: 'Error:' + error,
+        });
+      }
+    }
+
+
+    exports.setusefparameters = (req, res) => {
+      let prop=req.body[0].toString();
+      let prop2=req.body[1].toString();
+      try {
+        var para="";
+        const options = {
+          method: "GET",
+          hostname: usefRefererDSOUrl(req),
+          port: "8443",
+          path: usefRefererDSO(req) + 'rest/Event/setProperty/' + prop + '/' + prop2,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          insecure: true,
+        };
+    
+        var _req = https.request(options, function (_res) {
+          var chunks = [];
+    
+          _res.on("data", function (chunk) {
+            chunks.push(chunk);
+          });
+    
+          _res.on("end", function () {
+            var body = Buffer.concat(chunks);
+            console.log(body.toString());
+        
+          });
+        });
+    
+        // _req.write(JSON.stringify(req.body));
+        _req.end();
+        //console.log(_req.body.parameters);
+        res.json({
+          status: 'Success',
+          data: '1234'
+        });
+      }
+      catch (error) {
+        console.log(error);
+        res.json({
+          status: 'Error:' + error,
+        });
+      }
+    }
+
+
+    exports.getPlanboardFlexOffer = (req, res) => {
+      try {
+        let _result = [];
+        myDatabase.createStatement()
+          .then(statement => {
+            return statement.executeQuery('SELECT * FROM ' + usefRefererUpperDSO(req) + '.PLAN_BOARD_MESSAGE WHERE DOCUMENT_TYPE=\'FLEX_OFFER\'')
+          })
+          .then(resultSet => {
+            const arrayOfResults = resultSet.fetchAllResults()
+            arrayOfResults.forEach(result => {
+              _result.push(JSON.parse('{"sequence" : "'+result['SEQUENCE_NUMBER'] +'","document":"'+ result['DOCUMENT_STATUS']+'"}'));
+    
+    
+            })
+            console.log(_result);
+            res.json({
+              status: 'success',
+              body: _result,
+            }
+            )
+          },
+    
+          )
+    
+      }catch (error) {
+        console.log(error);
+        res.json({
+          status: 'Error:' + error,
+        });
+      }
+
+    }
+
