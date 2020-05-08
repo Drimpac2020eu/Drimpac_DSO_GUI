@@ -11,6 +11,7 @@ export class LineChartComponent implements OnChanges {
     @Input() nameHorizonal: any;
     @Input() nameHorizonalDown: any;
     @Input() nameVerical: any;
+    @Input() colors:any;
     options: any; 
 
     xAxisdata=[];
@@ -34,7 +35,7 @@ export class LineChartComponent implements OnChanges {
                 text: this.nameHorizonal, 
                 x: 'center',
                 textStyle: {
-                    color: '#000000',
+                    color: '#777B7E',
                 },
             },
             visualMap: [{
@@ -42,7 +43,11 @@ export class LineChartComponent implements OnChanges {
                 type: 'continuous',
                 seriesIndex: 0,
                 min: 0,
-                max: gradientLimit
+                max: gradientLimit,
+                inRange: {
+                    color: this.colors,// ['#e5e5ff', '#b2b2ff', '#7f7fff'],
+                    symbolSize: [30, 100]
+                }
             }],
             // backgroundColor: "#808080",
  
@@ -52,7 +57,7 @@ export class LineChartComponent implements OnChanges {
                 name: this.nameHorizonalDown,
                 nameLocation: 'center',
                 nameTextStyle: {
-                    color: 'black',
+                    color: '#777B7E',
                     fontSize: 22,
                 },
                 nameGap: 25,
@@ -72,7 +77,7 @@ export class LineChartComponent implements OnChanges {
                 name: this.nameVerical,
                 nameLocation: 'center',
                 nameTextStyle: {
-                    color: 'black',
+                    color: '#777B7E',
                     fontSize: 22,
                 },
                 nameGap: 40,
@@ -124,8 +129,10 @@ export class LineChartComponent implements OnChanges {
                         color: '#bfbfbf'
                     }
                 }, */
-              //  color: '#0033cc',
+                
+                
             }],
+           
         };
         
     }

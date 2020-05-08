@@ -1,7 +1,0 @@
-{
-  "/drimpac-dso/rest": {
-    "target": "https://160.40.52.193:9000",
-    "secure": false,
-    "changeOrigin": true
-  }
-}

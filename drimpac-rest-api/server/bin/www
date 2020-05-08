@@ -24,8 +24,6 @@ module.exports = {
 
 var app = require('../index');
 var debug = require('debug')('file-upload-api:server');
-
-
 var http = require('https');
 var fs = require('fs');
 
@@ -46,7 +44,7 @@ const options = {
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.DRIMPAC_AGG_REST_PORT || '9000');
+var port = normalizePort(process.env.DRIMPAC_AGG_REST_PORT || '9005');
 app.set('port', port);
 
 
@@ -126,21 +124,4 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
-
-  someDatabaseFun();
-  
-}
-
-var someDatabaseFun = function() {
-  const { exec } = require('child_process');
-  exec('ls | grep js', (err, stdout, stderr) => {
-    if (err) {
-      //some err occurred
-      console.error(err)
-    } else {
-     // the *entire* stdout and stderr (buffered)
-     console.log(`stdout: ${stdout}`);
-     console.log(`stderr: ${stderr}`);
-    }
-  });
 }

@@ -41,6 +41,10 @@ export class FlexOfferRevokeComponent implements OnInit {
   nameHD2 = 'Program Time Units';
   nameV2 = 'Price';
 
+  
+  colorsblue=['#e5e5ff', '#b2b2ff', '#7f7fff'];
+  colorsred=['#ffcccc', '#ff9999', '#ff6666'];
+
   userSettings = {
     actions: false,
     hideSubHeader: true,

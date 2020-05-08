@@ -1,7 +1,7 @@
 'use strict';
 const sha256 = require('sha256');
 const crypto = require('crypto');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const nodemailer = require('nodemailer');
 const smtpTransport = require('nodemailer-smtp-transport');
 const fs = require('fs');
@@ -80,9 +80,10 @@ exports.create_user = (req, res) => {
   let password = req.body.parameters.password;
   let email = req.body.parameters.email;
   let role = req.body.parameters.role;
+  let country = req.body.parameters.country;
   let fullName = req.body.parameters.fullName;
 
-  console.log(email, password, email, role);
+  console.log(email, password, email, role, country);
   let user_info = {};
   let login_token;
 
@@ -146,6 +147,7 @@ exports.create_user = (req, res) => {
           },
         ],
         role: role,
+        country: country,
         fullName: fullName,
         profile: {},
       };

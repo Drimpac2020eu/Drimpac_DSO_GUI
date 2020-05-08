@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
+import { EnvService } from '../../../env.service';
 import { v1 as uuid } from 'uuid';
 import * as moment from 'moment';
 
@@ -146,8 +147,10 @@ export interface iflex {
 
 @Injectable()
 export class XmlRequests {
-
-    constructor(private httpClient: HttpClient) { }
+    httpsServer:string;
+    constructor(env: EnvService,private httpClient: HttpClient) { 
+        this.httpsServer=env.httpsServer;
+    }
 
     xmlver() {
         const str = '<?xml version="1.0" encoding="utf-8"?>\n';
@@ -272,7 +275,7 @@ export class XmlRequests {
         };
         return new Promise(resolve => {
 
-            const url = 'https://160.40.52.193:9000/drimpac-dso/rest/getCROs';
+            const url = this.httpsServer + '/drimpac-dso/rest/getCROs';
             this.httpClient.get(url)
                 .subscribe(
                     res => {
@@ -295,7 +298,7 @@ export class XmlRequests {
         };
         return new Promise(resolve => {
 
-            const url = 'https://160.40.52.193:9000/drimpac-dso/rest/getSynchronisationCongestionpoints';
+            const url = this.httpsServer + '/drimpac-dso/rest/getSynchronisationCongestionpoints';
             this.httpClient.get(url)
                 .subscribe(
                     res => {
@@ -312,7 +315,7 @@ export class XmlRequests {
 
         return new Promise(resolve => {
 
-            const url = 'https://160.40.52.193:9000/drimpac-dso/rest/api/v1/xml_message';
+            const url = this.httpsServer + '/drimpac-dso/rest/api/v1/xml_message';
             this.httpClient.post(url,
                 {
                     method: 'POST',
@@ -337,7 +340,7 @@ export class XmlRequests {
     public addNewCongestion(data) {
 
         return new Promise(resolve => {
-            const url = 'https://160.40.52.193:9000/drimpac-dso/rest/add_Congestion';
+            const url = this.httpsServer + '/drimpac-dso/rest/add_Congestion';
 
 
 
@@ -357,7 +360,7 @@ export class XmlRequests {
 
         return new Promise(resolve => {
 
-            const url = 'https://160.40.52.193:9000/drimpac-dso/rest/getPrognoses';
+            const url = this.httpsServer + '/drimpac-dso/rest/getPrognoses';
             this.httpClient.get(url)
                 .subscribe(
                     res => {
@@ -374,7 +377,7 @@ export class XmlRequests {
 
         return new Promise(resolve => {
 
-            const url = 'https://160.40.52.193:9000/drimpac-dso/rest/getFlexOffer';
+            const url = this.httpsServer + '/drimpac-dso/rest/getFlexOffer';
             this.httpClient.get(url)
                 .subscribe(
                     res => {
@@ -391,7 +394,7 @@ export class XmlRequests {
 
         return new Promise(resolve => {
 
-            const url = 'https://160.40.52.193:9000/drimpac-dso/rest/getFlexOrder';
+            const url = this.httpsServer + '/drimpac-dso/rest/getFlexOrder';
             this.httpClient.get(url)
                 .subscribe(
                     res => {
@@ -408,7 +411,7 @@ export class XmlRequests {
 
         return new Promise(resolve => {
 
-            const url = 'https://160.40.52.193:9000/drimpac-dso/rest/getConfigFile';
+            const url = this.httpsServer + '/drimpac-dso/rest/getConfigFile';
             this.httpClient.get(url)
                 .subscribe(
                     res => {
@@ -425,7 +428,7 @@ export class XmlRequests {
 
         return new Promise(resolve => {
 
-            const url = 'https://160.40.52.193:9000/drimpac-dso/rest/commoneferenceupdate';
+            const url = this.httpsServer + '/drimpac-dso/rest/commoneferenceupdate';
             this.httpClient.get(url)
                 .subscribe(
                     res => {
@@ -442,7 +445,7 @@ export class XmlRequests {
 
         return new Promise(resolve => {
 
-            const url = 'https://160.40.52.193:9000/drimpac-dso/rest/commoneferencequery';
+            const url = this.httpsServer + '/drimpac-dso/rest/commoneferencequery';
             this.httpClient.get(url)
                 .subscribe(
                     res => {
@@ -459,7 +462,7 @@ export class XmlRequests {
 
         return new Promise(resolve => {
 
-            const url = 'https://160.40.52.193:9000/drimpac-dso/rest/connectionforecast';
+            const url = this.httpsServer + '/drimpac-dso/rest/connectionforecast';
             this.httpClient.get(url)
                 .subscribe(
                     res => {
@@ -476,7 +479,7 @@ export class XmlRequests {
 
         return new Promise(resolve => {
 
-            const url = 'https://160.40.52.193:9000/drimpac-dso/rest/flexorder';
+            const url = this.httpsServer + '/drimpac-dso/rest/flexorder';
             this.httpClient.get(url)
                 .subscribe(
                     res => {
@@ -492,7 +495,7 @@ export class XmlRequests {
     public createFlexrequest(data) {
 
         return new Promise(resolve => {
-            const url = 'https://160.40.52.193:9000/drimpac-dso/rest/flexrequest';
+            const url = this.httpsServer + '/drimpac-dso/rest/flexrequest';
 
 
 
@@ -511,7 +514,7 @@ export class XmlRequests {
     public getDrmsCong() {
 
         return new Promise(resolve => {
-            const url = 'https://160.40.52.193:9000/drimpac-dso/rest/getDrmsCongestions';
+            const url = this.httpsServer + '/drimpac-dso/rest/getDrmsCongestions';
             this.httpClient.get(url)
                 .subscribe(
                     res => {
@@ -527,7 +530,7 @@ export class XmlRequests {
     public getActiveCongestions() {
 
         return new Promise(resolve => {
-            const url = 'https://160.40.52.193:9000/drimpac-dso/rest/activecongestions';
+            const url = this.httpsServer + '/drimpac-dso/rest/activecongestions';
             this.httpClient.get(url)
                 .subscribe(
                     res => {
@@ -544,7 +547,7 @@ export class XmlRequests {
     public getActiveAggregators() {
 
         return new Promise(resolve => {
-            const url = 'https://160.40.52.193:9000/drimpac-dso/rest/activeaggregators';
+            const url = this.httpsServer + '/drimpac-dso/rest/activeaggregators';
             this.httpClient.get(url)
                 .subscribe(
                     res => {
@@ -560,7 +563,7 @@ export class XmlRequests {
     public revokeflexoffer(data) {
 
         return new Promise(resolve => {
-            const url = 'https://160.40.52.193:9000/drimpac-dso/rest/flexofferrevoke';
+            const url = this.httpsServer + '/drimpac-dso/rest/flexofferrevoke';
 
 
 
@@ -580,7 +583,7 @@ export class XmlRequests {
     public getrevokeflexoffer() {
 
         return new Promise(resolve => {
-            const url = 'https://160.40.52.193:9000/drimpac-dso/rest/getflexofferrevoke';
+            const url = this.httpsServer + '/drimpac-dso/rest/getflexofferrevoke';
             this.httpClient.get(url)
                 .subscribe(
                     res => {
@@ -596,7 +599,7 @@ export class XmlRequests {
     public getusefProperty(data) {
 
         return new Promise(resolve => {
-            const url = 'https://160.40.52.193:9000/drimpac-dso/rest/getusefparameters';
+            const url = this.httpsServer + '/drimpac-dso/rest/getusefparameters';
 
 
 
@@ -615,7 +618,7 @@ export class XmlRequests {
     public setusefProperty(data) {
 
         return new Promise(resolve => {
-            const url = 'https://160.40.52.193:9000/drimpac-dso/rest/setusefparameters';
+            const url = this.httpsServer + '/drimpac-dso/rest/setusefparameters';
 
 
 
@@ -635,7 +638,7 @@ export class XmlRequests {
     public getPlanboardFlexOffer() {
 
         return new Promise(resolve => {
-            const url = 'https://160.40.52.193:9000/drimpac-dso/rest/planBoardflexoffer';
+            const url = this.httpsServer + '/drimpac-dso/rest/planBoardflexoffer';
             this.httpClient.get(url)
                 .subscribe(
                     res => {

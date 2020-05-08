@@ -17,7 +17,7 @@ import { ɵNgStyleR2Impl } from '@angular/common';
   templateUrl: './flexRequest.component.html',
 })
 export class FlexRequestComponent implements OnInit {
-
+  colorsred=['#ffcccc', '#ff9999', '#ff6666'];
   numbers: string;
   message: string;
   messageQueue = Object;

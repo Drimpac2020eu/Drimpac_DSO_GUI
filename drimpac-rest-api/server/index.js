@@ -21,7 +21,10 @@ app.use(
 );
 const authApi = require('./routes/authAPI');
 const drimpacApi = require('./routes/drimpacAPI');
+const epe = require('./routes/epe.js')
+//const epe = require('./routes/epe')
 const unitManagementApi = require('./routes/unitManagementAPI');
+const usefAPI = require('./routes/usefAPI');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -61,38 +64,51 @@ app.use(cookieParser());
 app.use(fileUpload({}));
 
 /* DRIMPAC API */
-app.get('/drimpac-aggregator/rest/api/v1/get_EPE', drimpacApi.getEPE);
-app.get('/drimpac-dso/rest/api/v1/getmessage', drimpacApi.sendmessage);
-app.post('/drimpac-dso/rest/api/v1/sendmessage', drimpacApi.getmessage);
-app.get('/drimpac-dso/rest/getCROs', drimpacApi.getCROs);
-app.get('/drimpac-dso/rest/getSynchronisationCongestionpoints', drimpacApi.getSynchronisationCongestionpoints);
-app.post('/drimpac-dso/rest/api/v1/xml_message', drimpacApi.xmlMessage);
 
-app.post('/drimpac-dso/rest/add_CRO', drimpacApi.addCRO);
-app.post('/drimpac-dso/rest/get_CRO', drimpacApi.getCRO);
-app.post('/drimpac-dso/rest/add_Congestion', drimpacApi.addCongestion);
-app.get('/drimpac-dso/rest/getPrognoses', drimpacApi.getPrognoses);
-app.get('/drimpac-dso/rest/getFlexOffer', drimpacApi.getFlexOffer);
-app.get('/drimpac-dso/rest/getConfigFile', drimpacApi.getConfigFile);
-app.get('/drimpac-dso/rest/commoneferenceupdate', drimpacApi.commoneferenceupdate);
-app.get('/drimpac-dso/rest/commoneferencequery', drimpacApi.commoneferencequery);
-app.get('/drimpac-dso/rest/connectionforecast', drimpacApi.connectionforecast);
-app.get('/drimpac-dso/rest/flexorder', drimpacApi.flexorder);
-app.post('/drimpac-dso/rest/flexrequest', drimpacApi.flexrequest);
-app.post('/drimpac-dso/rest/AgrForecastDone', drimpacApi.agrForecast);
+app.post('/drimpac-aggregator/rest/api/v1/get_EPE', drimpacApi.getEPE);
+//app.post('/drimpac-aggregator/rest/api/v1/get_profilePrices', drimpacApi.getProfilePrices);
+app.post('/drimpac-aggregator/rest/api/v1/get_publish_message', drimpacApi.publishMessage);
+//app.get('/drimpac-aggregator/rest/api/v1/get_subscribe_message', drimpacApi.subscribeMessage);
+app.get('/drimpac-aggregator/rest/api/v1/get_PV_Data', drimpacApi.getPVData);
+app.get('/drimpac-aggregator/rest/api/v1/get_available_services', drimpacApi.getAvailableServices);
+app.get('/drimpac-aggregator/rest/api/v1/get_latest_pvw', drimpacApi.getPVData);
+app.post('/drimpac-aggregator/rest/api/v1/publish_connections', drimpacApi.publishConnections);
+app.get('/drimpac-aggregator/rest/api/v1/get_load_forecast', drimpacApi.getLoadForecast);
+app.get('/drimpac-aggregator/rest/api/v1/get_asset_load_forecast', drimpacApi.getAssetLoadForecast);
+app.get('/drimpac-aggregator/rest/api/v1/get_flexibility_offer', drimpacApi.getFlexibilityOffer);
+app.get('/drimpac-aggregator/rest/api/v1/get_registered_connections', drimpacApi.getRegisteredConnections);
+app.get('/drimpac-aggregator/rest/api/v1/get_latest_pvTimeseries', drimpacApi.getLatestPVTimeseries);
+app.get('/drimpac-dso/rest/api/v1/getmessage', usefAPI.sendmessage);
+app.post('/drimpac-dso/rest/api/v1/sendmessage', usefAPI.getmessage);
+app.get('/drimpac-dso/rest/getCROs', usefAPI.getCROs);
+app.get('/drimpac-dso/rest/getSynchronisationCongestionpoints', usefAPI.getSynchronisationCongestionpoints);
+app.post('/drimpac-dso/rest/api/v1/xml_message', usefAPI.xmlMessage)
+app.post('/drimpac-dso/rest/add_CRO', usefAPI.addCRO);
+app.post('/drimpac-dso/rest/get_CRO', usefAPI.getCRO);
+app.post('/drimpac-dso/rest/add_Congestion', usefAPI.addCongestion);
+app.get('/drimpac-dso/rest/getPrognoses', usefAPI.getPrognoses);
+app.get('/drimpac-dso/rest/getFlexOffer', usefAPI.getFlexOffer);
+app.get('/drimpac-dso/rest/getConfigFile', usefAPI.getConfigFile);
+app.get('/drimpac-dso/rest/commoneferenceupdate', usefAPI.commoneferenceupdate);
+app.get('/drimpac-dso/rest/commoneferencequery', usefAPI.commoneferencequery);
+app.get('/drimpac-dso/rest/connectionforecast', usefAPI.connectionforecast);
+app.get('/drimpac-dso/rest/flexorder', usefAPI.flexorder);
+app.get('/drimpac-dso/rest/activecongestions', usefAPI.activecongestions);
+app.get('/drimpac-dso/rest/activeaggregators', usefAPI.activeaggregators);
+
+
+
 /* AUTH API */
 
-app.post('/drimpac-dso/rest/api/v1/create_user', authApi.create_user);
-app.post('/drimpac-dso/rest/api/v1/update_user', authApi.update_user);
-app.post('/drimpac-dso/rest/api/v1/login_with_email_password', authApi.login_with_email_password);
-app.post('/drimpac-dso/rest/api/v1/logout', authApi.logout);
-app.get('/drimpac-dso/rest/api/v1/get_user_list', authApi.get_user_list);
-app.post('/drimpac-dso/rest/api/v1/remove_user', authApi.remove_user);
-app.post('/drimpac-dso/rest/forgot', authApi.forgot);
-app.post('/drimpac-dso/rest/api/v1/reset', authApi.reset);
-app.post('/drimpac-dso/rest/api/v1/refresh', authApi.refresh);
-app.get('/drimpac-dso/rest/getAvailiableAggregators', authApi.getAvailiableAggregators);
-
+app.post('/drimpac/rest/api/v1/create_user', authApi.create_user);
+app.post('/drimpac/rest/api/v1/update_user', authApi.update_user);
+app.post('/drimpac/rest/api/v1/login_with_email_password', authApi.login_with_email_password);
+app.post('/drimpac/rest/api/v1/logout', authApi.logout);
+app.get('/drimpac/rest/api/v1/get_user_list', authApi.get_user_list);
+app.post('/drimpac/rest/api/v1/remove_user', authApi.remove_user);
+app.post('/drimpac/rest/api/v1/forgot', authApi.forgot);
+app.post('/drimpac/rest/api/v1/reset', authApi.reset);
+app.post('/drimpac/rest/api/v1/refresh', authApi.refresh);
 
 app.post('/drimpac-dso/rest/add_device', unitManagementApi.addDevice);
 app.get('/drimpac-dso/rest/get_devices', unitManagementApi.getDevices);

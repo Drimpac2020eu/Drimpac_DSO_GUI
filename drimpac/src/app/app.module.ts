@@ -34,7 +34,6 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
     HttpClientModule,
     AppRoutingModule,
     TimerComponent,
-
     ThemeModule.forRoot(),
 
     NbSidebarModule.forRoot(),
@@ -43,6 +42,7 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
     NbDialogModule.forRoot(),
     NbWindowModule.forRoot(),
     NbToastrModule.forRoot(),
+    
     NbChatModule.forRoot({
       messageGoogleMapKey: 'AIzaSyA_wNuCzia92MAmdLRzmqitRGvCF7wCZPY',
     }),

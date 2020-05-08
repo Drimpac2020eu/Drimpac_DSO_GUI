@@ -52,6 +52,8 @@ export class FlexOrderComponent implements OnInit {
   yAxisLabel = 'Watt';
   barp = 4;
 
+  colorsblue=['#e5e5ff', '#b2b2ff', '#7f7fff'];
+  colorsred=['#ffcccc', '#ff9999', '#ff6666'];
 
   Timeseries = [];
   nameH = 'Flexibility Offer TimeSeries';
@@ -354,7 +356,7 @@ export class FlexOrderComponent implements OnInit {
 
         }
         this.userSourcePTU.load(this.tablePTU);
-
+        console.log(this.Timeseries2);
       }
 
     }

@@ -83,11 +83,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
   ],
   },
-  // {
-  //   title: 'Events',
-  //   icon: 'grid-outline',
-  //   link: '/pages/events',
-  // },
+   {
+     title: 'Events',
+     icon: 'grid-outline',
+     link: '/pages/events',
+   },
 
  // {
   //  title: 'Test Connection',
@@ -111,7 +111,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   },
 
   {
-    title: 'Usef Parameters',
+    title: 'Parameters',
     icon: 'settings-outline',
     link: '/pages/usefParameters',
   },

@@ -58,22 +58,17 @@
           </div>
 
           <div class="row">
-            <div class="col-md-12">
-              <ngx-line-chart [chartPrices]="Timeseries" [nameHorizonal]="nameH" [nameHorizonalDown]="nameHD"
+            <div class="col-md-6">
+              <ngx-line-chart [chartPrices]="Timeseries" [nameHorizonal]="nameH" [nameHorizonalDown]="nameHD" [colors]="colorsblue"
                 [nameVerical]="nameV"></ngx-line-chart>
             </div>
-          </div>
+          
 
 
-          <div class="row">
-            <div class="col-md-12">
-              <h2> </h2>
-            </div>
-          </div>
 
-          <div class="row">
-            <div class="col-md-12">
-              <ngx-line-chart [chartPrices]="Timeseries2" [nameHorizonal]="nameH2" [nameHorizonalDown]="nameHD2"
+         
+            <div class="col-md-6">
+              <ngx-line-chart [chartPrices]="Timeseries2" [nameHorizonal]="nameH2" [nameHorizonalDown]="nameHD2" [colors]="colorsred"
                 [nameVerical]="nameV2"></ngx-line-chart>
             </div>
           </div>

@@ -6,6 +6,7 @@ import { filter, map } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { NbAuthService, NbAuthJWTToken, NbAuthResult } from '@nebular/auth';
+import { serverEvents} from '../../services/eventsServer/serverEvents.service';
 
 @Component({
   selector: 'ngx-header',
@@ -56,14 +57,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   currentTheme = 'default';
 
-
+  actionvalue:any;
+  nactionvalue=0;
 
   constructor(private sidebarService: NbSidebarService,
     private menuService: NbMenuService,
     private themeService: NbThemeService,
     private layoutService: LayoutService,
     private authService: NbAuthService,
-    protected router: Router) {
+    protected router: Router,
+    private _myService: serverEvents) {
 
     this.authService.onTokenChange()
       .subscribe((token: NbAuthJWTToken) => {
@@ -93,6 +96,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
           }, 1000);
         }
       });
+
+      this._myService.ServerSentEvent('https://160.40.52.193:9000/drimpac-dso/rest/endp').subscribe(data => {
+        if (data['data']!=="{\"msg\":\"conn\"}")
+        {
+        this.nactionvalue+=1;
+        this.actionvalue=this.nactionvalue.toString()+'+';
+        }
+      } );
   }
 
   ngOnDestroy() {
@@ -120,5 +131,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   navigateHome() {
     this.menuService.navigateHome();
     return false;
+  }
+
+  actionclick()
+  {
+    this.actionvalue="";
+    this.nactionvalue=0;
   }
 }

@@ -24,6 +24,9 @@ export class EventsComponent implements OnInit {
           message: {
             title: 'Message',
           },
+          data: {
+            title: 'Data',
+          },
           timestamp: {
             title: 'Timestamp',
             width: '15%',
@@ -42,7 +45,7 @@ export class EventsComponent implements OnInit {
       console.log(this.messages);
       for (let i = 0; i < this.messages.length; i++) {
         this.messageQueue[i] = {
-         id: [i + 1], message: [this.messages[i]['payload']['message']], timestamp : [this.messages[i]['payload']['timestamp']],
+         id: [i + 1], message: [this.messages[i]['payload']['message']], timestamp : [this.messages[i]['payload']['timestamp']],data : [this.messages[i]['payload']['data']]
         };
       }
 

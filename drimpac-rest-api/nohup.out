@@ -1,0 +1,78 @@
+npm WARN npm npm does not support Node.js v10.15.2
+npm WARN npm You should probably upgrade to a newer version of node as we
+npm WARN npm can't make any promises that npm will work with this version.
+npm WARN npm Supported releases of Node.js are the latest release of 4, 6, 7, 8, 9.
+npm WARN npm You can find the latest version at https://nodejs.org/
+
+> DrimpacREST@0.1.0 start /home/tsotakis/nodeJServer/drimpac-rest-api
+> node ./server/bin/www
+
+mongodb://drimpac:DrM+DB-20+20@160.40.52.193:27017/drimpac?authSource=admin
+(node:4414) DeprecationWarning: current Server Discovery and Monitoring engine is deprecated, and will be removed in a future version. To use the new Server Discover and Monitoring engine, pass option { useUnifiedTopology: true } to the MongoClient constructor.
+undefined Result {
+  command: 'SELECT',
+  rowCount: 1,
+  oid: null,
+  rows: [ { now: 2020-03-18T15:39:59.503Z } ],
+  fields:
+   [ Field {
+       name: 'now',
+       tableID: 0,
+       columnID: 0,
+       dataTypeID: 1184,
+       dataTypeSize: 8,
+       dataTypeModifier: -1,
+       format: 'text' } ],
+  _parsers: [ [Function: parseDate] ],
+  _types:
+   TypeOverrides {
+     _types:
+      { getTypeParser: [Function: getTypeParser],
+        setTypeParser: [Function: setTypeParser],
+        arrayParser: [Object],
+        builtins: [Object] },
+     text: {},
+     binary: {} },
+  RowCtor: null,
+  rowAsArray: false }
+null Result {
+  command: 'SELECT',
+  rowCount: 1,
+  oid: null,
+  rows: [ { now: 2020-03-18T15:39:59.503Z } ],
+  fields:
+   [ Field {
+       name: 'now',
+       tableID: 0,
+       columnID: 0,
+       dataTypeID: 1184,
+       dataTypeSize: 8,
+       dataTypeModifier: -1,
+       format: 'text' } ],
+  _parsers: [ [Function: parseDate] ],
+  _types:
+   TypeOverrides {
+     _types:
+      { getTypeParser: [Function: getTypeParser],
+        setTypeParser: [Function: setTypeParser],
+        arrayParser: [Object],
+        builtins: [Object] },
+     text: {},
+     binary: {} },
+  RowCtor: null,
+  rowAsArray: false }
+mongodb ready
+Units modifications now accessible...
+[ { DOMAIN: 'agr1.miwenergia.com' } ]
+[0mGET /drimpac-dso/rest/activeaggregators [32m200 [0m111.835 ms - 62[0m
+Killed
+npm ERR! code ELIFECYCLE
+npm ERR! errno 137
+npm ERR! DrimpacREST@0.1.0 start: `node ./server/bin/www`
+npm ERR! Exit status 137
+npm ERR! 
+npm ERR! Failed at the DrimpacREST@0.1.0 start script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /home/tsotakis/.npm/_logs/2020-03-18T15_42_31_129Z-debug.log

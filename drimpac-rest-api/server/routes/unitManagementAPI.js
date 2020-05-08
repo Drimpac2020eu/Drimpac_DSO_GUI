@@ -179,18 +179,19 @@ exports.getdsoPremises = (req, res) => {
     .collection('dsoPremises')
     .find()
     .then(payload => {
+     
         console.log(payload);
         res.send({ results: payload });
+   
     })};
     
-   
 
-    exports.getDrmsCongestions = (req, res) => {
-        mongoDbHelper
-        //.collection('dsoPremises')
-        .collection('der_systems')
-        .find()
-        .then(payload => {
-            console.log(payload);
-            res.send({ results: payload });
-        })};
+exports.getDrmsCongestions = (req, res) => {
+    mongoDbHelper
+    .collection('der_systems')
+    .find()
+    .then(payload => {
+        console.log(payload);
+         res.send({ results: payload });
+           
+     })};
