@@ -1,0 +1,10 @@
+{
+    "typescript.tsdk": "./node_modules/typescript/lib",
+    "tslint.enable": false,
+    "git.enabled": false,
+    // Path and filename of the git executable, e.g. `C:\Program Files\Git\bin\git.exe` (Windows).
+"git.path": null,
+
+// When enabled, commits will automatically be fetched from the default remote of the current Git repository.
+"git.autofetch": false,
+}
